@@ -5,17 +5,40 @@ let highRange = 128;
 // Get references to the #generate element
 let generateBtn = document.querySelector("#generate");
 
-// Write password to the #password input
-function writePassword() {
 
+
+//
+function generatePassword() {
+  
   let generatePassword = Number(window.prompt
     ("How many characters? (at least 8, and no more than 128)")) 
 
-  if (generatePassword() >lowRange && <highRange ) {
+
+    if (generatePassword < lowRange || generatePassword > highRange) {
+      window.alert("Please enter a number between 8 and 128");
+      return;
+    } else if (generatePassword >= lowRange && generatePassword <= highRange) {
+      window.alert("continue");
+      
+    }
 
 
-  }
+
+
+
+
+
+
     
+  
+   }
+
+
+
+
+
+// Write password to the #password input
+function writePassword() {
 
   let password = generatePassword();
   let passwordText = document.querySelector("#password");
@@ -27,7 +50,6 @@ function writePassword() {
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
-
 
 
 
