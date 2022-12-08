@@ -2,6 +2,12 @@
 let lowRange = 8;
 let highRange = 128;
 
+let uppercaseLetters = ['Q','W','E','R','T','Y','U','I','O','P','A','S','D','F','G','H','J','K','L','Z','X','C','V','B','N','M']
+let lowercaseLetters = ['q','w','e','r','t','y','u','i','o','p','a','s','d','f','g','h','j','k','l','z','x','c','v','b','n','m']
+let numerical = ['0','1','2','3','4','5','6','7','8','9']
+let specials = ['!','@','#','$','%','^','&','*','(',')','_','-','+','=','[','{',']','}',':',';','"',"'",',','<','.','>','/','?','|']
+
+
 // Get references to the #generate element
 let generateBtn = document.querySelector("#generate");
 
@@ -9,28 +15,54 @@ let generateBtn = document.querySelector("#generate");
 
 //
 function generatePassword() {
+  let concatArray = []
+
   
-  let generatePassword = Number(window.prompt
+  let passwordLength = Number(window.prompt
     ("How many characters? (at least 8, and no more than 128)")) 
 
 
-    if (generatePassword < lowRange || generatePassword > highRange) {
-      window.alert("Please enter a number between 8 and 128");
+    if (passwordLength < lowRange || passwordLength > highRange) {
+      window.alert("Please enter a number between 8 and 128.");
       return;
-    } else if (generatePassword >= lowRange && generatePassword <= highRange) {
-      window.alert("continue");
-      
-    }
-
-
-
-
-
-
-
-
+    } 
     
+    let lowercase = window.confirm ("Include Lowercase?")
+      if (lowercase) {
+        concatArray = concatArray.concat(lowercaseLetters);
+      
+      }
+
+    let uppercase = window.confirm ("Include Uppercase?")
+      if (uppercase) {
+        concatArray = concatArray.concat(uppercaseLetters);
+      }
+    
+    let numeric = window.confirm ("Include Numbers?")
+      if (numeric) {
+        concatArray = concatArray.concat(numerical);
+      }
+
+    let specialCharacters = window.confirm ("Include Special Characters?")
+      if (specialCharacters) {
+        concatArray = concatArray.concat(specials);
+      }
+      
+      if (!lowercase && !uppercase && !numeric && !specialCharacters) {
+        window.alert("Please Select At least One Of The Chatacter Types.");
+        return;
   
+      }
+
+
+      let passCode = ""
+    for (var i = 0; i < passwordLength; i++){  
+      let randomIndex = Math.floor(Math.random() * concatArray.length)
+      passCode = concatArray[randomIndex] + passCode
+
+    }
+    return passCode;
+    
    }
 
 
@@ -51,26 +83,3 @@ function writePassword() {
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
 
-
-
-
-
-
-// add an array of all alphanumerical characters as well 
-// as a separate one with all special charcters
-
-//GIVEN I need a new, secure password
-//WHEN I click the button to generate a password
-//THEN I am presented with a series of prompts for password criteria
-//WHEN prompted for password criteria
-//THEN I select which criteria to include in the password
-//WHEN prompted for the length of the password
-//THEN I choose a length of at least 8 characters and no more than 128 characters
-//WHEN asked for character types to include in the password
-//THEN I confirm whether or not to include lowercase, uppercase, numeric, and/or special characters
-//WHEN I answer each prompt
-//THEN my input should be validated and at least one character type should be selected
-//WHEN all prompts are answered
-//THEN a password is generated that matches the selected criteria
-//WHEN the password is generated
-//THEN the password is either displayed in an alert or written to the page
